@@ -7,3 +7,22 @@ main {
     margin: auto;
     background-color: white;
 }
+
+table {
+    width: 800px;
+    margin: auto;
+}
+
+table, tr, td {
+    border: 1px solid blue;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 5px;
+}
+
+th {
+    color: white;
+    background-color: blue;
+}

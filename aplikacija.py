@@ -1,3 +1,4 @@
+import datetime
 import smtplib
 from bottle import route, run, template, request, static_file
 from email.message import EmailMessage
@@ -39,8 +40,17 @@ def posta():
     msg['To'] = to
     msg['From'] = 'vicsender@gimvic.org'
     server = smtplib.SMTP('smtp.telemach.net')
-    server.send_message(msg)
+    # server.send_message(msg)
     server.quit()
-    return 'Sporocilo uspesno poslano!'
+
+    # Poslan e-mail si zapisemo v datoteko skupaj z datumom in uro.
+    with open('all_mail.log', 'a') as datoteka:
+        print('{0}|{1}|{2}|{3}'.format(datetime.datetime.now(), to, title, text), file=datoteka)
+
+    return template('mail_sent_confirmation')
+
+@route('/list_mail/')
+def seznam_poslane_poste():
+    return template('list_all_mail')
 
 run(host='localhost', reloader=True, port=8080)
